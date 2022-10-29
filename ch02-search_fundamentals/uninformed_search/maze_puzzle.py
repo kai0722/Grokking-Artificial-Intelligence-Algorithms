@@ -48,9 +48,8 @@ class MazePuzzle:
         return self.maze[current_point.x][current_point.y]
 
     # Return all valid neighbors around a specific point, excluding points outside of the maze and walls.
-    def get_neighbors(self, current_point:Point) -> list:
-        """return [Point]"""
-        neighbors = []
+    def get_neighbors(self, current_point:Point) -> list[Point]:
+        neighbors:list[Point] = []
         # potential_neighbors = [[0, 1], [0, -1], [1, 0], [-1, 0]]
         potential_neighbors = [[NORTH.x, NORTH.y], [SOUTH.x, SOUTH.y], [EAST.x, EAST.y], [WEST.x, WEST.y]]
         for neighbor in potential_neighbors:
