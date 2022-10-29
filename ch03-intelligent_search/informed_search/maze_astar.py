@@ -7,10 +7,10 @@ import maze_puzzle as mp
 # Total cost is calculated using two metrics: the total distance from the start node to the current node, and the
 # estimated cost of moving to a specific node by utilizing a heuristic. When attempting to minimize cost, a lower
 # value will indicate a better performing solution.
-def run_astar(maze_game, current_point):
+def run_astar(maze_game:mp.MazePuzzle, current_point:mp.Point) -> mp.Point | str:
     # Append the current node to the stack
-    visited_points = []
-    stack = [current_point]
+    visited_points:list[mp.Point] = []
+    stack = [current_point] 
     # Keep searching while there are nodes in the stack
     while stack:
         # Set the next node in the stack as the current node
