@@ -1,7 +1,6 @@
 import copy
 import math
 
-
 # This class is used to store the idea of a point in the maze and linking it to other points to create a path.
 class Point:
     def __init__(self, x=0, y=0):
@@ -45,11 +44,12 @@ class MazePuzzle:
                      '0#000',
                      '00000']
 
-    def get_current_point_value(self, current_point):
+    def get_current_point_value(self, current_point) -> str:
         return self.maze[current_point.x][current_point.y]
 
     # Return all valid neighbors around a specific point, excluding points outside of the maze and walls.
-    def get_neighbors(self, current_point):
+    def get_neighbors(self, current_point:Point) -> list:
+        """return [Point]"""
         neighbors = []
         # potential_neighbors = [[0, 1], [0, -1], [1, 0], [-1, 0]]
         potential_neighbors = [[NORTH.x, NORTH.y], [SOUTH.x, SOUTH.y], [EAST.x, EAST.y], [WEST.x, WEST.y]]

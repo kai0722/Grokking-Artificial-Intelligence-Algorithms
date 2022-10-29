@@ -12,7 +12,7 @@ import maze_puzzle as mp
 # achieved using a stack to better represent the order of operations as to which nodes get visited and processed.
 # It is important to keep track of the visited points so that the same nodes do not get visited unnecessarily and
 # create cyclic loops.
-def run_dfs(maze_game, current_point):
+def run_dfs(maze_game:mp.MazePuzzle, current_point):
     # Append the current node to the stack
     visited_points = []
     stack = [current_point]
