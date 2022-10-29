@@ -1,4 +1,4 @@
-
+from typing import Literal
 # Symbols to represent human or AI players
 PLAYER_HUMAN = 'H'
 PLAYER_AI = 'A'
@@ -14,7 +14,7 @@ PLAYERS = {PLAYER_HUMAN: -1,
 class Connect:
 
     # The game board is initialized with a board size for x and y.
-    def __init__(self, board_size_x=5, board_size_y=4):
+    def __init__(self, board_size_x:int=5, board_size_y:int=4) -> None:
         self.board_size_x = board_size_x
         self.board_size_y = board_size_y
         self.player_turn = PLAYERS[PLAYER_AI]
@@ -25,15 +25,16 @@ class Connect:
         self.board = self.generate_board(self.board_size_x, self.board_size_y)
 
     # Generate an empty board to begin on reset the game
-    def generate_board(self, board_size_x, board_size_y):
-        board = []
-        for x in range(board_size_x):
-            row = BOARD_EMPTY_SLOT * board_size_y
+    def generate_board(self, board_size_x:int, board_size_y:int) -> list[str]:
+        board:list[str] = []
+        for _ in range(board_size_x):
+            row = BOARD_EMPTY_SLOT * board_size_y #行列とボードの座標系は転置の関係となるゆえの表記
+            #print("row : {}".format(row))
             board.append(row)
         return board
 
     # Print the board to console
-    def print_board(self):
+    def print_board(self) -> None:
         result = ''
         for y in range(0, self.board_size_y):
             for x in range(0, self.board_size_x):
@@ -42,14 +43,14 @@ class Connect:
         print(result)
 
     # Print which player's turn it is
-    def print_turn(self):
+    def print_turn(self) -> None:
         if self.player_turn == PLAYERS[PLAYER_HUMAN]:
             print('It is Human to play')
         else:
             print('It is AI to play')
 
     # Determine if the game has a winner between the human and AI
-    def has_winner(self):
+    def has_winner(self) -> str|None:
         if self.has_a_row(PLAYER_HUMAN, WINNING_SEQUENCE_COUNT):
             return "Human won"
         elif self.has_a_row(PLAYER_AI, WINNING_SEQUENCE_COUNT):
@@ -57,7 +58,7 @@ class Connect:
         return 0
 
     # Get the score for the AI
-    def get_score_for_ai(self):
+    def get_score_for_ai(self) -> Literal[-10, 10, 0]:
         if self.has_a_row(PLAYER_HUMAN, 4):
             return -10
         if self.has_a_row(PLAYER_AI, 4):
@@ -65,7 +66,7 @@ class Connect:
         return 0
 
     # Determine if a player has a row
-    def has_a_row(self, player, row_count):
+    def has_a_row(self, player:Literal['A','H'], row_count) -> bool:
         for x in range(self.board_size_x):
             for y in range(self.board_size_y):
                 if self.has_row_of_x_from_point(player, row_count, x, y, 1, 0):  # Horizontal row
@@ -77,8 +78,8 @@ class Connect:
         return False
 
     # Determine if a player has a row given a starting point and offset
-    def has_row_of_x_from_point(self, player, row_count, x, y, offset_x, offset_y):
-        total = 0
+    def has_row_of_x_from_point(self, player, row_count:int, x:int, y:int, offset_x:int, offset_y:int):
+        total:int = 0
         for i in range(row_count):
             target_x = x + (i * offset_x)
             target_y = y + (i * offset_y)

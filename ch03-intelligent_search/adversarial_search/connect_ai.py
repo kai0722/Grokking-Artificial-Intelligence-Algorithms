@@ -28,7 +28,7 @@ def choose_move(connect, depth):
 
 
 # Search using the minmax algorithm given a game, search depth, player's ID, and default move
-def minmax(connect, depth, min_or_max, move):
+def minmax(connect, depth, min_or_max, move) -> Move:
     current_score = connect.get_score_for_ai()
     current_is_board_full = connect.is_board_full()
     # Return the default move if it doesn't make sense to search for one
