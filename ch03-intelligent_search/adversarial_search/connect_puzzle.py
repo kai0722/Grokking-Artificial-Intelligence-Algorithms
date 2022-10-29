@@ -21,7 +21,7 @@ class Connect:
         self.board = self.generate_board(board_size_x, board_size_y)
 
     # Reset the game with an empty board
-    def reset(self):
+    def reset(self) -> None:
         self.board = self.generate_board(self.board_size_x, self.board_size_y)
 
     # Generate an empty board to begin on reset the game
@@ -50,7 +50,7 @@ class Connect:
             print('It is AI to play')
 
     # Determine if the game has a winner between the human and AI
-    def has_winner(self) -> str|None:
+    def has_winner(self) -> str|Literal[0]:
         if self.has_a_row(PLAYER_HUMAN, WINNING_SEQUENCE_COUNT):
             return "Human won"
         elif self.has_a_row(PLAYER_AI, WINNING_SEQUENCE_COUNT):
@@ -78,7 +78,8 @@ class Connect:
         return False
 
     # Determine if a player has a row given a starting point and offset
-    def has_row_of_x_from_point(self, player, row_count:int, x:int, y:int, offset_x:int, offset_y:int):
+    def has_row_of_x_from_point(self, player:Literal['A','H'], row_count:int, 
+                                x:int, y:int, offset_x:int, offset_y:int) -> bool:
         total:int = 0
         for i in range(row_count):
             target_x = x + (i * offset_x)
@@ -91,27 +92,27 @@ class Connect:
         return False
 
     # Determine if a specific x,y pair is within bounds of the board
-    def is_within_bounds(self, x, y):
+    def is_within_bounds(self, x, y) -> bool:
         if 0 <= x < self.board_size_x and 0 <= y < self.board_size_y:
             return True
         return False
 
     # Determine if the entire board is filled with disks
-    def is_board_full(self):
+    def is_board_full(self) -> bool:
         for x in range(self.board_size_x):
             if BOARD_EMPTY_SLOT in self.board[x]:
                 return False
         return True
 
     # Determine if a slot is full
-    def is_slot_full(self, slot_number):
+    def is_slot_full(self, slot_number:int) -> bool:
         if BOARD_EMPTY_SLOT in self.board[slot_number]:
             return False
         return True
 
     # Determine if a slot number is empty
-    def is_slot_empty(self, slot_number):
-        count = 0
+    def is_slot_empty(self, slot_number:int) -> bool:
+        count:int = 0
         for i in range(self.board_size_y):
             if self.board[slot_number][i] == BOARD_EMPTY_SLOT:
                 count += 1
@@ -120,7 +121,7 @@ class Connect:
         return False
 
     # Execute a move for a player
-    def execute_move(self, player, slot_number):
+    def execute_move(self, player:Literal['A','H'], slot_number:int) -> None:
         row = self.board[slot_number]
         # Place the disk at the bottom if the slot number is empty
         if self.is_slot_empty(slot_number):
@@ -133,7 +134,7 @@ class Connect:
                     break
 
     # Execute a move for a player if there's space in the slot and choose the player based on whose turn it is
-    def play_move(self, slot):
+    def play_move(self, slot:int) -> bool:
         if 0 <= slot <= 4:
             if not self.is_slot_full(slot):
                 if self.player_turn == PLAYERS[PLAYER_AI]:
