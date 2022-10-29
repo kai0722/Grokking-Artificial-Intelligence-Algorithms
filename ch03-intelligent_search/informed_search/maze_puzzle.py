@@ -1,6 +1,6 @@
 import copy
 import math
-
+from typing import Literal
 
 # This class is used to store the idea of a point in the maze and linking it to other points to create a path.
 class Point:
@@ -45,7 +45,7 @@ class MazePuzzle:
                      '0#000',
                      '00000']
 
-    def get_current_point_value(self, current_point):
+    def get_current_point_value(self, current_point:Point):
         return self.maze[current_point.x][current_point.y]
 
     # Return all valid neighbors around a specific point, excluding points outside of the maze and walls.
@@ -86,7 +86,7 @@ class MazePuzzle:
 
 
 # Utility to get a path as a list of points by traversing the parents of a node until the root is reached.
-def get_path(point):
+def get_path(point:Point):
     path = []
     current_point = point
     while current_point.parent is not None:
@@ -110,7 +110,7 @@ def get_path_length(point):
 # Utility to calculate the cost of a path if an additional cost of movement exists.
 def get_path_cost(point):
     path = []
-    current_point = point
+    current_point:Point = point
     total_cost = 0
     while current_point.parent is not None:
         path.append(current_point)
@@ -120,12 +120,12 @@ def get_path_cost(point):
 
 
 # Utility to determine the cost of a specific move.
-def get_move_cost(origin, target):
+def get_move_cost(origin:Point, target:Point):
     return get_cost(get_direction(origin, target))
 
 
 # Utility to determine the direction of movement given an origin and target point.
-def get_direction(origin, target):
+def get_direction(origin:Point, target:Point) -> Literal['N', 'S', 'E', 'W'] | None:
     if target.x == origin.x and target.y == origin.y - 1:
         return 'N'
     elif target.x == origin.x and target.y == origin.y + 1:
