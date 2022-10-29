@@ -1,6 +1,8 @@
 import copy
 import random
 import math
+import connect_puzzle as cp
+from typing import Literal
 
 # Set the min-max IDs, and pseudo infinity constants
 MIN = -1
@@ -9,16 +11,17 @@ INFINITY_POSITIVE = math.inf
 INFINITY_NEGATIVE = -math.inf
 
 
-# This class contains a move and the respective value earned for that move
+# 
 class Move:
-
-    def __init__(self, move=0, value=0):
+    """This class contains a move and the respective value earned for that move"""
+    def __init__(self, move:int=0, value:int=0):
         self.move = move
         self.value = value
 
 
-# Choose a move given a game and a search depth
-def choose_move(connect, depth):
+# 
+def choose_move(connect:cp.Connect, depth:int):
+    """Choose a move given a game and a search depth"""
     print('Thinking...')
     move_result = False
     # Search for a move until a valid one is found
@@ -27,8 +30,11 @@ def choose_move(connect, depth):
     return move_result
 
 
-# Search using the minmax algorithm given a game, search depth, player's ID, and default move
-def minmax(connect, depth, min_or_max, move, alpha, beta):
+# 
+def minmax(connect:cp.Connect, depth:int, min_or_max:Literal[-1,1], 
+            move, alpha:int|float, beta:int|float) -> Move:
+    """Search using the minmax algorithm 
+        given a game, search depth, player's ID, and default move"""
     current_score = connect.get_score_for_ai()
     current_is_board_full = connect.is_board_full()
     # Return the default move if it doesn't make sense to search for one

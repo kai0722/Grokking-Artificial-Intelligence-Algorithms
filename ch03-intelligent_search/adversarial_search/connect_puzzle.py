@@ -20,7 +20,7 @@ class Connect:
         """The game board is initialized with a board size for x and y."""
         self.board_size_x = board_size_x
         self.board_size_y = board_size_y
-        self.player_turn = PLAYERS[PLAYER_AI]
+        self.player_turn:Literal[-1,1] = PLAYERS[PLAYER_AI]
         self.board = self.generate_board(board_size_x, board_size_y)
 
     # 
