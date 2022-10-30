@@ -63,6 +63,8 @@ class Connect:
             return "Human won"
         elif self.has_a_row(PLAYER_AI, WINNING_SEQUENCE_COUNT):
             return "AI won"
+        elif self.is_board_full():
+            return "Draw"
         return 0
 
     # 

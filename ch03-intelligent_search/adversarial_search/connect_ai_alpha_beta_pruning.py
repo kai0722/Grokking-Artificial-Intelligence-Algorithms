@@ -32,7 +32,7 @@ def choose_move(connect:cp.Connect, depth:int):
 
 # 
 def minmax(connect:cp.Connect, depth:int, min_or_max:Literal[-1,1], 
-            move, alpha:int|float, beta:int|float) -> Move:
+            move:int, alpha:int|float, beta:int|float) -> Move:
     """Search using the minmax algorithm 
         given a game, search depth, player's ID, and default move"""
     current_score = connect.get_score_for_ai()
@@ -45,12 +45,12 @@ def minmax(connect:cp.Connect, depth:int, min_or_max:Literal[-1,1],
     best_max_move = -1
     # Get possible moves given the board size
     moves = random.sample(range(0, connect.board_size_y + 1), connect.board_size_x)
-    for slot in moves:
+    for slot in moves: 
         neighbor = copy.deepcopy(connect)
         move_outcome = neighbor.play_move(slot)
         if move_outcome:
             # Recursively call minmax for the next state after playing a move
-            best = minmax(neighbor, depth - 1, min_or_max * -1, slot, alpha, beta)
+            best:Move = minmax(neighbor, depth - 1, min_or_max * -1, slot, alpha, beta)
             # Update the best score and best move, ignore irrelevant scores using alpha beta pruning
             if (min_or_max == MAX and best.value > best_score) or (min_or_max == MIN and best.value < best_score):
                 best_score = best.value
