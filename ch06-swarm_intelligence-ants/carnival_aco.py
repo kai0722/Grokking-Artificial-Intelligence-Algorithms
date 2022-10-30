@@ -173,7 +173,7 @@ class ACO:
     # Tie everything together - this is the main loop
     def solve(self, total_iterations, evaporation_rate):
         self.setup_pheromones()
-        for i in range(0, TOTAL_ITERATIONS):
+        for i in range(0, total_iterations):
             self.setup_ants(NUMBER_OF_ANTS_FACTOR)
             for r in range(0, ATTRACTION_COUNT - 1):
                 self.move_ants(self.ant_colony)
